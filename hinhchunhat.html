@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p id="result"></p>
+<canvas id="myCanvas" width="1400" height="800" style="border: 1px solid #4833ff"></canvas>
+<script>
+    function Rectangle(x, y, width, height) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+
+        this.area = function () {
+            return this.width * this.height;
+        }
+
+        this.circumference = function () {
+            return 2 * (this.width + this.height);
+        }
+    }
+
+    function getRandomHex() {
+        return Math.floor(Math.random() * 255);
+    }
+
+    function getRandomColor() {
+        let red = getRandomHex();
+        let green = getRandomHex();
+        let blue = getRandomHex();
+        let gray = getRandomHex();
+        return "rgb(" + red + ',' + blue + ',' + green + ',' + gray + ')';
+    }
+
+    function createRectangle() {
+        let draw = document.getElementById("myCanvas").getContext("2d");
+        let width = Math.floor(Math.random() * 80);
+        let height = Math.floor(Math.random() * 80);
+        let color = getRandomColor();
+        let x = Math.random() * window.innerWidth;
+        let y = Math.random() * window.innerHeight;
+        let rectangle = new Rectangle(x,y,width,height);
+        draw.beginPath();
+        draw.rect(rectangle.x,rectangle.y,rectangle.width,rectangle.height);
+        draw.fillStyle = color;
+        draw.fill();
+        document.getElementById('result').innerHTML = "S = "+  rectangle.area() +'/ C = '+ rectangle.circumference();
+    }
+
+    createRectangle();
+</script>
+</body>
+</html>
